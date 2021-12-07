@@ -24,10 +24,11 @@ body{
         rgba(40, 180, 133, 0.8)), 
         url('../img/hero.jpg');
         background-size: cover;
-        background-position: center;
+        background-position: top;
+        position: relative;
         
         clip-path: polygon(0 0 , 100% 0% ,100% 75vh,0% 100%);
-        position: relative;
+       
 }
 
 
@@ -40,13 +41,15 @@ body{
 .logo{
     height: 35px;
 }
-
+/* 
+.logo-box:hover {
+    animation: maveRight 1s ease-out;
+} */
 
 .text-box {
     position: absolute;
     top: 40%;
     left: 50%;
-    /* background-color: red; */
     transform: translate(-50%,-50%);
     text-align: center;
 }
@@ -55,6 +58,8 @@ body{
     color: #Fff;
     text-transform: uppercase;
     margin-bottom: 60px;
+    
+    backface-visibility: hidden;
 }
 
 .primary-header-main {
@@ -62,12 +67,60 @@ body{
     font-size: 60px;
     font-weight: 400;
     letter-spacing: 35px;
+    
+    animation-name:  maveLeft;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+   
+    /* animation-iteration-count: 3; 
+     animation-delay: 5s;
+    */
 }
+
 .primary-header-sub {
     display: block;
     font-size: 20px;
-    font-weight: 400;
+    font-weight: 700;
     letter-spacing: 17.5px;
+    animation: maveRight 1s ease-out;
+}
+
+/* animation */
+
+@keyframes maveLeft {
+    0%{
+        opacity: 0;
+        transform: translateX(-100px) ;
+    }
+    80% {
+        transform: translateX(10px) ;
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes maveRight {
+    0%{
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    80% {
+        transform: translateX(-10px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes maveButton {
+    0%{
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        transform: translateY(0);
+    }
 }
 
 
@@ -75,18 +128,56 @@ body{
 .btn:visited {
     padding:15px 40px;
     display: inline-block;
-    font-size: 20px;
     text-transform: uppercase;
     text-decoration: none;
     color: #777;
     border-radius: 100px;
-
+    transition: all .2s;
+    position: relative;
 }
 
-.btn-white{
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn::after {
+    content: "";
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 100px;
+    transition: all .5s;
+    z-index: -1;
+}
+
+.btn-white::after {
     background-color: #Fff;
 }
 
-.btn-animation {
-    
+.btn:hover::after {
+    transform: scaleX(1.4) scaleY(1.6);
+    opacity: 0;
 }
+.btn-white{
+    background-color: #Fff;
+    transition: all .4s;
+}
+
+.btn-animated {
+    animation: maveButton .5s ease-out .75s;
+    animation-fill-mode: backwards;
+}
+
+
+
+
+
